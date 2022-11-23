@@ -557,7 +557,7 @@ int main(){
 ```C++
 //引用使用的场景，通常用来修饰形参
 void showValue(const int& v) {
-	//v += 10;
+	//v += 10;  // const修饰了形参，不能修改v
 	cout << v << endl;
 }
 
@@ -572,7 +572,7 @@ int main() {
 
 	//函数中利用常量引用防止误操作修改实参
 	int a = 10;
-	showValue(a);
+	showValue(a); // 10
 
 	system("pause");
 
