@@ -307,13 +307,13 @@ int main() {
 	int a = 10;
 	int &b = a;
 
-	cout << "a = " << a << endl;
-	cout << "b = " << b << endl;
+	cout << "a = " << a << endl;  //10
+	cout << "b = " << b << endl;  //10
 
 	b = 100;
 
-	cout << "a = " << a << endl;
-	cout << "b = " << b << endl;
+	cout << "a = " << a << endl;  //100
+	cout << "b = " << b << endl;  //100
 
 	system("pause");
 
@@ -340,12 +340,12 @@ int main() {
 	int a = 10;
 	int b = 20;
 	//int &c; //错误，引用必须初始化
-	int &c = a; //一旦初始化后，就不可以更改
-	c = b; //这是赋值操作，不是更改引用
+	int &c = a; //一旦初始化后，就不可以更改，这里c=10
+	c = b; //这是赋值操作，不是更改引用,c=20,a=20
 
-	cout << "a = " << a << endl;
-	cout << "b = " << b << endl;
-	cout << "c = " << c << endl;
+	cout << "a = " << a << endl; //20
+	cout << "b = " << b << endl; //20
+	cout << "c = " << c << endl; //20
 
 	system("pause");
 
@@ -401,13 +401,13 @@ int main() {
 	int b = 20;
 
 	mySwap01(a, b);
-	cout << "a:" << a << " b:" << b << endl;
+	cout << "a:" << a << " b:" << b << endl; //10 20
 
 	mySwap02(&a, &b);
-	cout << "a:" << a << " b:" << b << endl;
+	cout << "a:" << a << " b:" << b << endl; //20 10
 
 	mySwap03(a, b);
-	cout << "a:" << a << " b:" << b << endl;
+	cout << "a:" << a << " b:" << b << endl; //20 10
 
 	system("pause");
 
@@ -451,13 +451,13 @@ int main() {
 ```C++
 //返回局部变量引用
 int& test01() {
-	int a = 10; //局部变量
+	int a = 10; //局部变量，放在栈区
 	return a;
 }
 
 //返回静态变量引用
 int& test02() {
-	static int a = 20;
+	static int a = 20; //放在全局区，程序运行完之后释放
 	return a;
 }
 
@@ -465,18 +465,18 @@ int main() {
 
 	//不能返回局部变量的引用
 	int& ref = test01();
-	cout << "ref = " << ref << endl;
-	cout << "ref = " << ref << endl;
+	cout << "ref = " << ref << endl; //10，ref就是局部变量a
+	cout << "ref = " << ref << endl; //乱码，a的内存被释放
 
 	//如果函数做左值，那么必须返回引用
 	int& ref2 = test02();
-	cout << "ref2 = " << ref2 << endl;
-	cout << "ref2 = " << ref2 << endl;
+	cout << "ref2 = " << ref2 << endl; //10，ref就是静态变量a
+	cout << "ref2 = " << ref2 << endl; //10
 
-	test02() = 1000;
+	test02() = 1000; //相当于a=1000
 
-	cout << "ref2 = " << ref2 << endl;
-	cout << "ref2 = " << ref2 << endl;
+	cout << "ref2 = " << ref2 << endl; //1000。ref就是a,a已经被改成了1000
+	cout << "ref2 = " << ref2 << endl; //1000
 
 	system("pause");
 
